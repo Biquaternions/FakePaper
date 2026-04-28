@@ -1,0 +1,168 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Biquaternions <biquaternions@serlith.net>
+Date: Tue, 28 Apr 2026 16:38:13 -0500
+Subject: [PATCH] Folia And Fish API
+
+
+diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
+index 14d81c7b138ebf999d5812d26fbf869209c100f3..7d08c4bc8591ae52e8175655c0a84376ec78c9bf 100644
+--- a/src/main/java/org/bukkit/Bukkit.java
++++ b/src/main/java/org/bukkit/Bukkit.java
+@@ -2988,6 +2988,76 @@ public final class Bukkit {
+     }
+     // Paper end - Folia region threading API
+ 
++    /**
++     * Gets the TPS from the region which owns the specified location, or {@code null} if no region owns
++     * the specified location.
++     *
++     * @param location The location for which to get the TPS
++     * @return TPS (5s, 15s, 1m, 5m, 15m), or null if the region doesn't exist
++     */
++    public static double @Nullable [] getRegionTPS(@NotNull Location location) {
++        throw new UnsupportedOperationException("Not implemented");
++    }
++
++    /**
++     * Gets the TPS from the region which owns the specified chunk, or {@code null} if no region owns
++     * the specified location.
++     *
++     * @param chunk - The specified chunk
++     * @return TPS (5s, 15s, 1m, 5m, 15m), or null if the region doesn't exist
++     */
++    public static double @Nullable [] getRegionTPS(@NotNull Chunk chunk) {
++        throw new UnsupportedOperationException("Not implemented");
++    }
++
++    /**
++     * Gets the TPS from the region which owns the specified chunk, or {@code null} if no region owns
++     * the specified location.
++     *
++     * @param world - World containing the chunk
++     * @param chunkX - X-coordinate of the chunk
++     * @param chunkZ - Z-coordinate of the chunk
++     * @return TPS (5s, 15s, 1m, 5m, 15m), or null if the region doesn't exist
++     */
++    public static double @Nullable [] getRegionTPS(@NotNull World world, int chunkX, int chunkZ) {
++        throw new UnsupportedOperationException("Not implemented");
++    }
++
++    /**
++     * Gets the average tick time from the region which owns the specified location, or {@code null} if no region owns
++     * the specified location.
++     *
++     * @param location The location for which to get the TPS
++     * @return Average tick time (5s, 15s, 1m, 5m, 15m), or null if the region doesn't exist
++     */
++    public static double @Nullable [] getRegionAverageTickTimes(@NotNull Location location) {
++        throw new UnsupportedOperationException("Not implemented");
++    }
++
++    /**
++     * Gets the average tick time from the region which owns the specified chunk, or {@code null} if no region owns
++     * the specified location.
++     *
++     * @param chunk - The specified chunk
++     * @return Average tick time (5s, 15s, 1m, 5m, 15m), or null if the region doesn't exist
++     */
++    public static double @Nullable [] getRegionAverageTickTimes(@NotNull Chunk chunk) {
++        throw new UnsupportedOperationException("Not implemented");
++    }
++
++    /**
++     * Gets the average tick time from the region which owns the specified chunk, or {@code null} if no region owns
++     * the specified location.
++     *
++     * @param world - World containing the chunk
++     * @param chunkX - X-coordinate of the chunk
++     * @param chunkZ - Z-coordinate of the chunk
++     * @return Average tick time (5s, 15s, 1m, 5m, 15m), or null if the region doesn't exist
++     */
++    public static double @Nullable [] getRegionAverageTickTimes(@NotNull World world, int chunkX, int chunkZ) {
++        throw new UnsupportedOperationException("Not implemented");
++    }
++
+     /**
+      * @deprecated All methods on this class have been deprecated, see the individual methods for replacements.
+      */
+diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
+index 0ec885b97d655c03371840d739b47063494ed36f..0fa4a0342c987d1491dcb294440005246a2f6e06 100644
+--- a/src/main/java/org/bukkit/Server.java
++++ b/src/main/java/org/bukkit/Server.java
+@@ -2761,4 +2761,48 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
+      */
+     void allowPausing(@NotNull org.bukkit.plugin.Plugin plugin, boolean value);
+     // Paper end - API to check if the server is sleeping
++
++    /**
++     * Returns whether the software has the Parallel World Ticking feature enabled
++     *
++     * @return If the Parallel World Ticking feature is enabled
++     */
++    public default boolean isParallelWorldTickingEnabled() {
++        throw new UnsupportedOperationException("Not implemented");
++    }
++
++    /**
++     * Gets the average tick time from the region which owns the specified location, or {@code null} if no region owns
++     * the specified location.
++     *
++     * @param location The location for which to get the TPS
++     * @return Average tick time (5s, 15s, 1m, 5m, 15m), or null if the region doesn't exist
++     */
++    default double @Nullable [] getRegionAverageTickTimes(@NotNull Location location){
++        throw new UnsupportedOperationException("Not implemented");
++    }
++
++    /**
++     * Gets the average tick time from the region which owns the specified chunk, or {@code null} if no region owns
++     * the specified location.
++     *
++     * @param chunk - The specified chunk
++     * @return Average tick time (5s, 15s, 1m, 5m, 15m), or null if the region doesn't exist
++     */
++    default double @Nullable [] getRegionAverageTickTimes(@NotNull Chunk chunk){
++        throw new UnsupportedOperationException("Not implemented");
++    }
++
++    /**
++     * Gets the average tick time from the region which owns the specified chunk, or {@code null} if no region owns
++     * the specified location.
++     *
++     * @param world - World containing the chunk
++     * @param chunkX - X-coordinate of the chunk
++     * @param chunkZ - Z-coordinate of the chunk
++     * @return Average tick time (5s, 15s, 1m, 5m, 15m), or null if the region doesn't exist
++     */
++    default double @Nullable [] getRegionAverageTickTimes(@NotNull World world, int chunkX, int chunkZ){
++        throw new UnsupportedOperationException("Not implemented");
++    }
+ }
+diff --git a/src/main/java/org/bukkit/World.java b/src/main/java/org/bukkit/World.java
+index b202bdb84bae23f7b2b5af591879a032f6378a25..738d0f1c16c33098a81bdcc90bd7cabc1e75902a 100644
+--- a/src/main/java/org/bukkit/World.java
++++ b/src/main/java/org/bukkit/World.java
+@@ -4560,6 +4560,23 @@ public interface World extends RegionAccessor, WorldInfo, PluginMessageRecipient
+     @NotNull
+     public Collection<GeneratedStructure> getStructures(int x, int z, @NotNull Structure structure);
+ 
++    /**
++     * Get a sample of the world last tick times (in nanos)
++     *
++     * @return A sample of the world last tick times (in nanos)
++     */
++    public default long @NotNull [] getTickTimes() {
++        throw new UnsupportedOperationException("Not implemented");
++    }
++    /**
++     * Get the world's average tick time (in millis)
++     *
++     * @return World's local average tick time (in millis)
++     */
++    public default double getAverageTickTime () {
++        throw new UnsupportedOperationException("Not implemented");
++    }
++
+     /**
+      * Represents various map environment types that a world may be
+      */
